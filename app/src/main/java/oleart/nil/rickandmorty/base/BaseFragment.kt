@@ -1,0 +1,47 @@
+package oleart.nil.rickandmorty.base
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+
+typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
+
+abstract class BaseFragment<VB : ViewBinding>(
+    private val inflate: Inflate<VB>
+) : Fragment() {
+
+    private var _binding: VB? = null
+    val binding get() = _binding!!
+
+    protected var useEventBus = false
+
+    override fun onCreate(bundle: Bundle?) {
+        super.onCreate(bundle)
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = inflate.invoke(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
+
+    protected fun isSafe() =
+        !(isRemoving || activity == null || isDetached || !isAdded || view == null || _binding == null)
+}
