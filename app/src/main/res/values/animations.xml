@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="duration_calendar_cell_transition">500</integer>
+
+    <integer name="activity_transition_duration">500</integer>
+    <integer name="activity_transition_back_duration">350</integer>
+    <integer name="duration_search_reverse_airports">300</integer>
+    <integer name="duration_search_reverse_airports_icon">600</integer>
+</resources>
