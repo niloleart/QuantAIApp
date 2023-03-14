@@ -5,21 +5,28 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.domain.model.Characters
 
 class CharactersAdapter(
     private val context: Context,
     private val presenter: HomeContract.Presenter,
-    private val character: Characters
+    private val character: Characters,
+    var listener: CharactersListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
 
+    interface CharactersListener {
+
+        fun onClick(character: Character)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == VIEW_TYPE_ITEM) {
             val inflater = LayoutInflater.from(context)
-            return CharactersViewHolder(context, inflater, parent)
+            return CharactersViewHolder(context, inflater, parent, listener)
         } else {
             val inflater = LayoutInflater.from(context)
             return LoadingViewHolder(context, inflater, parent)

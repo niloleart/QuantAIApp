@@ -9,13 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
 import oleart.nil.rickandmorty.base.BaseFragment
+import oleart.nil.rickandmorty.base.launchModalActivity
 import oleart.nil.rickandmorty.databinding.FragmentHomeBinding
+import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.domain.model.Characters
+import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity
 import oleart.nil.rickandmorty.ui.home.HomeContract.Presenter
 import javax.inject.Inject
 
 class HomeFragment(private var characters: Characters) :
-    BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate), HomeContract.View {
+    BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate), HomeContract.View,
+    CharactersAdapter.CharactersListener {
 
     @Inject
     lateinit var presenter: Presenter
@@ -37,7 +41,7 @@ class HomeFragment(private var characters: Characters) :
 
     private fun setRV() {
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
-        adapter = CharactersAdapter(requireContext(), presenter, characters)
+        adapter = CharactersAdapter(requireContext(), presenter, characters, this)
         binding.rvCharacters.adapter = adapter
     }
 
@@ -89,5 +93,10 @@ class HomeFragment(private var characters: Characters) :
 
             }, 2000
         )
+    }
+
+    override fun onClick(character: Character) {
+        val intent = CharacterDetailActivity.makeIntent(context!!, character)
+        launchModalActivity(intent)
     }
 }
