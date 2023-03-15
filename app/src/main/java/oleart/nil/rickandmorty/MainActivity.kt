@@ -30,7 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun setViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
-    override fun getTitleActivity() = "Main"
+    override fun getTitleActivity() = "Character List"
 
     override fun getTypeActionBar() = HOME
 
@@ -40,6 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        refreshTitleActionBar()
         getExtras()
         initFragments()
         setNavigation()

@@ -7,4 +7,20 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#F3F3F3</color>
+    <color name="greyscale_tundora">#4d4d4d</color>
+    <color name="greyscale_white">#ffffff</color>
+
+
+    <!-- Default text -->
+    <color name="text_header_1">@color/greyscale_tundora</color>
+    <color name="text_header_2">@color/greyscale_tundora</color>
+    <color name="text_normal">@color/greyscale_tundora</color>
+    <color name="text_hint">@color/greyscale_tundora</color>
+    <color name="text_normal_light">@color/greyscale_white</color>
+    <!--    <color name="text_link">@color/green_olive</color>-->
+    <!--    <color name="text_contrast">@color/yellow_supernova</color>-->
+    <!--    <color name="text_soft">@color/greyscale_mine_shaft</color>-->
+    <!--    <color name="text_connection">@color/turquoise_blue_chill</color>-->
+
 </resources>

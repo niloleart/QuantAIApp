@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TEXT STYLE -->
+    <style name="NormalText" parent="Roboto.Regular.M">
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/text_normal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ParagraphBoldText" parent="Roboto.Black.S">
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/text_normal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <string name="roboto_regular" translatable="false">sans-serif</string>
+    <string name="roboto_light" translatable="false">sans-serif-light</string>
+    <string name="roboto_black" translatable="false">sans-serif-black</string>
+    <string name="roboto_medium" translatable="false">sans-serif-medium</string>
+
+    <dimen name="text_size_xxs">11sp</dimen>
+    <dimen name="text_size_xs">12sp</dimen>
+    <dimen name="text_size_s">14sp</dimen>
+    <dimen name="text_size_m">16sp</dimen>
+    <dimen name="text_size_l">18sp</dimen>
+    <dimen name="text_size_xl">20sp</dimen>
+    <dimen name="text_size_xxl">22sp</dimen>
+
+    <style name="Roboto" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Roboto.Regular">
+        <item name="android:fontFamily">@string/roboto_regular</item>
+    </style>
+
+    <style name="Roboto.Light">
+        <item name="android:fontFamily">@string/roboto_light</item>
+    </style>
+
+    <style name="Roboto.Black">
+        <item name="android:fontFamily">@string/roboto_black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Roboto.Medium">
+        <item name="android:fontFamily">@string/roboto_medium</item>
+    </style>
+
+
+    <!-- Roboto Light -->
+    <style name="Roboto.Light.XXS">
+        <item name="android:textSize">@dimen/text_size_xxs</item>
+    </style>
+
+    <style name="Roboto.Light.XS">
+        <item name="android:textSize">@dimen/text_size_xs</item>
+    </style>
+
+    <style name="Roboto.Light.S">
+        <item name="android:textSize">@dimen/text_size_s</item>
+    </style>
+
+    <style name="Roboto.Light.M">
+        <item name="android:textSize">@dimen/text_size_m</item>
+    </style>
+
+    <style name="Roboto.Light.L">
+        <item name="android:textSize">@dimen/text_size_l</item>
+    </style>
+
+    <style name="Roboto.Light.XL">
+        <item name="android:textSize">@dimen/text_size_xl</item>
+    </style>
+
+    <style name="Roboto.Light.XXL">
+        <item name="android:textSize">@dimen/text_size_xxl</item>
+    </style>
+
+    <!-- Roboto Regular -->
+    <style name="Roboto.Regular.XXS">
+        <item name="android:textSize">@dimen/text_size_xxs</item>
+    </style>
+
+    <style name="Roboto.Regular.XS">
+        <item name="android:textSize">@dimen/text_size_xs</item>
+    </style>
+
+    <style name="Roboto.Regular.S">
+        <item name="android:textSize">@dimen/text_size_s</item>
+    </style>
+
+    <style name="Roboto.Regular.M">
+        <item name="android:textSize">@dimen/text_size_m</item>
+    </style>
+
+    <style name="Roboto.Regular.L">
+        <item name="android:textSize">@dimen/text_size_l</item>
+    </style>
+
+    <style name="Roboto.Regular.XL">
+        <item name="android:textSize">@dimen/text_size_xl</item>
+    </style>
+
+    <style name="Roboto.Regular.XXL">
+        <item name="android:textSize">@dimen/text_size_xxl</item>
+    </style>
+
+    <!-- Roboto Black -->
+    <style name="Roboto.Black.XXS">
+        <item name="android:textSize">@dimen/text_size_xxs</item>
+    </style>
+
+    <style name="Roboto.Black.XS">
+        <item name="android:textSize">@dimen/text_size_xs</item>
+    </style>
+
+    <style name="Roboto.Black.S">
+        <item name="android:textSize">@dimen/text_size_s</item>
+    </style>
+
+    <style name="Roboto.Black.M">
+        <item name="android:textSize">@dimen/text_size_m</item>
+    </style>
+
+    <style name="Roboto.Black.L">
+        <item name="android:textSize">@dimen/text_size_l</item>
+    </style>
+
+    <style name="Roboto.Black.XL">
+        <item name="android:textSize">@dimen/text_size_xl</item>
+    </style>
+
+    <style name="Roboto.Black.XXL">
+        <item name="android:textSize">@dimen/text_size_xxl</item>
+    </style>
+
+    <!-- Roboto Medium -->
+    <style name="Roboto.Medium.XXS">
+        <item name="android:textSize">@dimen/text_size_xxs</item>
+    </style>
+
+    <style name="Roboto.Medium.XS">
+        <item name="android:textSize">@dimen/text_size_xs</item>
+    </style>
+
+    <style name="Roboto.Medium.S">
+        <item name="android:textSize">@dimen/text_size_s</item>
+    </style>
+
+    <style name="Roboto.Medium.M">
+        <item name="android:textSize">@dimen/text_size_m</item>
+    </style>
+
+    <style name="Roboto.Medium.L">
+        <item name="android:textSize">@dimen/text_size_l</item>
+    </style>
+
+    <style name="Roboto.Medium.XL">
+        <item name="android:textSize">@dimen/text_size_xl</item>
+    </style>
+
+    <style name="Roboto.Medium.XXL">
+        <item name="android:textSize">@dimen/text_size_xxl</item>
+    </style>
+
+
+</resources>

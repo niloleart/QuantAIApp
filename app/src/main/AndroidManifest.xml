@@ -19,12 +19,13 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".presentation.detail.CharacterDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.splash.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">

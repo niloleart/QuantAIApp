@@ -8,18 +8,21 @@ import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import oleart.nil.rickandmorty.base.BaseActivity.ActionBarType.DEFAULT
+import androidx.viewbinding.ViewBinding
+import oleart.nil.rickandmorty.R
+import oleart.nil.rickandmorty.base.BaseActivity.ActionBarType.DETAIL
 import oleart.nil.rickandmorty.base.BaseActivity.ActionBarType.HOME
 import oleart.nil.rickandmorty.base.BaseActivity.ActionBarType.NONE
 import oleart.nil.rickandmorty.base.BaseActivity.ActionBarType.PROCESS
 
-abstract class BaseActivity<T> : AppCompatActivity() {
+abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
     enum class ActionBarType {
-        HOME, PROCESS, DEFAULT, NONE
+        HOME, PROCESS, DETAIL, NONE
     }
 
-    val binding: T by lazy { setViewBinding() }
+    lateinit var binding: B
+//    val binding: T by lazy { setViewBinding() }
 
     protected var activity: Activity? = null
 
@@ -27,7 +30,7 @@ abstract class BaseActivity<T> : AppCompatActivity() {
 
     protected var myToolbar: Toolbar? = null
 
-    abstract fun setViewBinding(): T
+    abstract fun setViewBinding(): B
 
     abstract fun setViewGroup(): ViewGroup
 
@@ -39,25 +42,32 @@ abstract class BaseActivity<T> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = setViewBinding()
         setContentView(setViewGroup())
         myToolbar = bindToolbar()
         initializeVariables()
+        setActionBar()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         supportActionBar?.let { actionBar ->
             when (getTypeActionBar()) {
-                HOME -> {}
-                PROCESS -> {}
-                DEFAULT -> {}
+                HOME -> {
+                    menuInflater.inflate(R.menu.home, menu)
+                    val item = menu?.findItem(R.id.actionbar_menu_search)
+                }
+                PROCESS -> {
+                    menuInflater.inflate(R.menu.menu_process, menu)
+//                    setCancelButton(menu)
+                }
+                DETAIL -> {}
                 NONE -> actionBar.hide()
+                else -> {
+                    //Not needed
+                }
             }
         }
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     private fun initializeVariables() {
@@ -71,13 +81,45 @@ abstract class BaseActivity<T> : AppCompatActivity() {
         actionBar.title = getTitleActivity()
     }
 
+    fun refreshTitleActionBar() {
+        if (getTypeActionBar() == HOME) {
+            val witTitle = !getTitleActivity().isNullOrEmpty()
+            if (witTitle) {
+                supportActionBar?.let { actionBar ->
+                    actionBar.setDisplayUseLogoEnabled(false)
+                    actionBar.setDisplayShowHomeEnabled(false)
+                    actionBar.setDisplayShowTitleEnabled(true)
+                    actionBar.title = getTitleActivity()
+                }
+            } else {
+                supportActionBar?.let { actionBar ->
+                    actionBar.setDisplayUseLogoEnabled(true)
+                    actionBar.setDisplayShowHomeEnabled(true)
+                    actionBar.setDisplayShowTitleEnabled(false)
+                }
+            }
+        } else {
+            supportActionBar?.title = getTitleActivity()
+        }
+    }
+
     private fun setActionBar() {
         myToolbar?.let {
             setSupportActionBar(it)
         }
 
         supportActionBar?.let { actionBar ->
-            configureActionBar(actionBar)
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setDisplayShowHomeEnabled(false)
+            actionBar.setHomeButtonEnabled(true)
+            when (getTypeActionBar()) {
+                HOME -> {
+                    actionBar.setDisplayHomeAsUpEnabled(false)
+                    actionBar.setDisplayUseLogoEnabled(false)
+                    actionBar.setDisplayShowTitleEnabled(true)
+                }
+                else -> configureActionBar(actionBar)
+            }
         }
     }
 }

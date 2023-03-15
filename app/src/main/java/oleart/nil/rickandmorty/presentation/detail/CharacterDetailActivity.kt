@@ -27,9 +27,9 @@ class CharacterDetailActivity : BaseActivity<ActivityCharacterDetailBinding>() {
 
     override fun setViewBinding() = ActivityCharacterDetailBinding.inflate(layoutInflater)
 
-    override fun setViewGroup() = binding.root
+    override fun setViewGroup() = binding!!.root
 
-    override fun getTitleActivity() = "Detail"
+    override fun getTitleActivity() = ""
 
     override fun getTypeActionBar() = ActionBarType.NONE
 
@@ -50,7 +50,7 @@ class CharacterDetailActivity : BaseActivity<ActivityCharacterDetailBinding>() {
         val toolbar = binding.toolbar
 //        setSupportActionBar(toolbar)
 
-        Glide.with(this).load(character.image).into(binding.ivExpanded)
+        Glide.with(this).load(character.image).centerCrop().centerInside().into(binding.ivExpanded)
 
         val appBarLayout = binding.abLayout
         appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
