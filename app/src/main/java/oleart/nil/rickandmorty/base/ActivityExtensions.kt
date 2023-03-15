@@ -1,7 +1,10 @@
 package oleart.nil.rickandmorty.base
 
 import android.content.Intent
+import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import oleart.nil.rickandmorty.R
 import oleart.nil.rickandmorty.base.TransitionType.MODAL
@@ -10,7 +13,15 @@ import oleart.nil.rickandmorty.base.TransitionType.SLIDE
 const val EXTRA_TRANSITION_TYPE = "extra_transitions_type"
 
 enum class TransitionType {
-    MODAL, SLIDE, DEFAULT
+    MODAL, SLIDE
+}
+
+fun AppCompatActivity.registerActivityResult(
+    getResult: ((output: ActivityResult?) -> Unit)
+): ActivityResultLauncher<Intent> {
+    return (this as ComponentActivity).registerForActivityResult(StartActivityForResult()) {
+        getResult.invoke(it)
+    }
 }
 
 fun AppCompatActivity.launchProcessActivity(

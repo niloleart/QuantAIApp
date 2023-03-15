@@ -89,6 +89,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         characters = intent.getSerializableExtra(EXTRA_CHARACTERS) as Characters
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     override fun onBackPressed() {
         if (active is HomeFragment) {
             this.finishAffinity()

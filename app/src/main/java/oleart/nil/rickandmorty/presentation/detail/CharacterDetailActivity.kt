@@ -1,8 +1,10 @@
 package oleart.nil.rickandmorty.presentation.detail
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
@@ -27,6 +29,8 @@ class CharacterDetailActivity :
 
     companion object {
 
+        const val RESULT_FAV = "result_favorite"
+        const val RESULT_CHAR_ID = "result_character_id"
         private const val EXTRA_CHARACTER = "EXTRA_CHARACTER"
 
         fun makeIntent(context: Context?, character: Character): Intent {
@@ -37,7 +41,7 @@ class CharacterDetailActivity :
 
     override fun setViewBinding() = ActivityCharacterDetailBinding.inflate(layoutInflater)
 
-    override fun setViewGroup() = binding!!.root
+    override fun setViewGroup() = binding.root
 
     override fun getTitleActivity() = ""
 
@@ -45,7 +49,13 @@ class CharacterDetailActivity :
 
     override fun bindToolbar() = binding.toolbar
 
+    override fun onPause() {
+        presenter.addToFavorite(character)
+        super.onPause()
+    }
+
     override fun finish() {
+        resultCharacterFavorite()
         super.finish()
         overridePendingTransition(R.anim.slide_in_bottom_activity, R.anim.slide_out_bottom_activity)
     }
@@ -73,13 +83,15 @@ class CharacterDetailActivity :
                 return true
             }
             R.id.actionbar_menu_fav -> {
-                addToFavorites()
+                if (character.isFavorite) {
+                    item.setIcon(android.R.drawable.star_big_off)
+                } else {
+                    item.setIcon(android.R.drawable.star_big_on)
+                }
+                character.isFavorite = !character.isFavorite
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun addToFavorites() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,6 +106,21 @@ class CharacterDetailActivity :
         setUpToolbar()
         Glide.with(this).load(character.image).centerCrop().centerInside().into(binding.ivExpanded)
         collapsingToolbarControl()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        if (character.isFavorite) {
+            menu?.findItem(R.id.actionbar_menu_fav)?.setIcon(android.R.drawable.star_big_on)
+        } else {
+            menu?.findItem(R.id.actionbar_menu_fav)?.setIcon(android.R.drawable.star_big_off)
+        }
+        return true
     }
 
     private fun collapsingToolbarControl() {
@@ -126,5 +153,12 @@ class CharacterDetailActivity :
             llLoading.hide()
             tvDescription.hide()
         }
+    }
+
+    private fun resultCharacterFavorite() {
+        val intent = Intent()
+            .putExtra(RESULT_FAV, character.isFavorite)
+            .putExtra(RESULT_CHAR_ID, character.id)
+        setResult(Activity.RESULT_OK, intent)
     }
 }

@@ -8,15 +8,19 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="5dp"
         android:id="@+id/cv_character"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="2dp"
-        android:elevation="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="6dp"
+        android:elevation="6dp"
         app:cardCornerRadius="6dp">
 
         <LinearLayout
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -25,29 +29,45 @@
             <ImageView
                 android:id="@+id/iv_character"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp" />
+                android:layout_height="60dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:weightSum="1">
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/Roboto.Medium.L"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Rick Sanchez" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_species"
-                    style="@style/Roboto.Light.M"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Human" />
+                    <TextView
+                        android:id="@+id/tv_name"
+                        style="@style/Roboto.Medium.L"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Rick Sanchez" />
+
+                    <TextView
+                        android:id="@+id/tv_species"
+                        style="@style/Roboto.Light.M"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Human" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_fav"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/star_big_off" />
             </LinearLayout>
+
 
         </LinearLayout>
 

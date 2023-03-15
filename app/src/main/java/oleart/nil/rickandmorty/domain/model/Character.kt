@@ -15,5 +15,7 @@ data class Character(
     val episode: List<String>,
     val url: String,
     val created: String, //TODO parse date
-    var description: String? = null
+    var description: String? = null,
+    var isFavorite: Boolean = false
+
 ) : Serializable

@@ -34,5 +34,14 @@ class CharactersViewHolder(
         binding.llParent.setOnClickListener {
             listener.onClick(character)
         }
+        paintFav()
+    }
+
+    private fun paintFav() {
+        if (character.isFavorite) {
+            binding.ivFav.setImageResource(android.R.drawable.star_big_on)
+        } else {
+            binding.ivFav.setImageResource(android.R.drawable.star_big_off)
+        }
     }
 }

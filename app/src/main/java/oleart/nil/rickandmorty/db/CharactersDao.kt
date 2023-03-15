@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import oleart.nil.rickandmorty.domain.model.Character
 
 @Dao
 interface CharactersDao {
@@ -19,4 +21,7 @@ interface CharactersDao {
 
     @Query("DELETE FROM Characters")
     suspend fun deleteAllCharacters()
+
+    @Update
+    fun updateCharacter(character: Character)
 }
