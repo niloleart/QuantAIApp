@@ -15,7 +15,7 @@ class RickAndMortyNDS @Inject constructor(
     val context: Context
 ) : NDS<Int, Either<DataSourceError, Characters>>() {
 
-    override fun getData(request: Int): Either<DataSourceError, Characters> {
+    override suspend fun getData(request: Int): Either<DataSourceError, Characters> {
         // TODO: set urls in a file
         val url = "https://rickandmortyapi.com/api/character"
         val api = Api<RickAndMortyApi>().createApi(

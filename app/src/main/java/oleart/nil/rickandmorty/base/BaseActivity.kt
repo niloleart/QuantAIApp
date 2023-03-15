@@ -60,7 +60,9 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
                     menuInflater.inflate(R.menu.menu_process, menu)
 //                    setCancelButton(menu)
                 }
-                DETAIL -> {}
+                DETAIL -> {
+                    menuInflater.inflate(R.menu.menu_detail, menu)
+                }
                 NONE -> actionBar.hide()
                 else -> {
                     //Not needed

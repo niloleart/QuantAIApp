@@ -7,6 +7,8 @@ interface HomeContract {
     interface Presenter {
 
         fun getMoreCharacters(actualPage: Int)
+        fun updateDB(characters: Characters)
+        fun getLastLoadedPage(page: String): Int
     }
 
     interface View {

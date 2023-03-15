@@ -15,6 +15,7 @@ import oleart.nil.rickandmorty.presentation.RickAndMortyApplication
         ActivityBindingModule::class,
         FragmentBindingModule::class,
         ApplicationModule::class,
+        DBModule::class,
         AndroidSupportInjectionModule::class
     ]
 )

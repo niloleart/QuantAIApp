@@ -3,7 +3,7 @@ package oleart.nil.rickandmorty.data.datasource
 interface DataSource<RequestType, ResultType> {
 
     @Throws(Exception::class)
-    fun getData(request: RequestType): ResultType {
+    suspend fun getData(request: RequestType): ResultType {
         throw NotImplementedError()
     }
 

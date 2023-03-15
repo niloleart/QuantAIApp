@@ -4,7 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
@@ -30,13 +32,18 @@ class HomeFragment(private var characters: Characters) :
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
+        lastLoadedPage = presenter.getLastLoadedPage(characters.info.nextPage)
         super.onAttach(context)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setRV()
         initScrollListener()
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun setRV() {
@@ -84,19 +91,23 @@ class HomeFragment(private var characters: Characters) :
                 var position = 0
                 while (currentSize - 1 < nextLimit - 1) {
                     this.characters.characters.add(characters.characters[position])
-//                    this.characters.characters.addAll(characters.characters)
                     position++
                     currentSize++
                 }
                 adapter.notifyDataSetChanged()
                 isLoading = false
-
+                updateDB()
             }, 2000
         )
     }
 
+    private fun updateDB() {
+        characters.characters.removeAll(listOf(null))
+        presenter.updateDB(characters)
+    }
+
     override fun onClick(character: Character) {
-        val intent = CharacterDetailActivity.makeIntent(context!!, character)
+        val intent = CharacterDetailActivity.makeIntent(context, character)
         launchModalActivity(intent)
     }
 }

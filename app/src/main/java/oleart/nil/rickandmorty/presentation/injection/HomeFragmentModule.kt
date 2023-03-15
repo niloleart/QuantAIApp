@@ -1,7 +1,10 @@
 package oleart.nil.rickandmorty.presentation.injection
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
+import oleart.nil.rickandmorty.db.CharactersDao
+import oleart.nil.rickandmorty.domain.DatabaseInteractor
 import oleart.nil.rickandmorty.domain.RickAndMortyInteractor
 import oleart.nil.rickandmorty.injection.scopes.PerFragment
 import oleart.nil.rickandmorty.ui.home.HomeContract
@@ -21,8 +24,18 @@ class HomeFragmentModule {
     @PerFragment
     internal fun providesPresenter(
         view: HomeContract.View,
-        interactor: RickAndMortyInteractor
+        context: Context,
+        interactor: RickAndMortyInteractor,
+        databaseInteractor: DatabaseInteractor
     ): HomeContract.Presenter {
-        return HomePresenter(view, interactor)
+        return HomePresenter(view, context, interactor, databaseInteractor)
+    }
+
+    @Provides
+    @PerFragment
+    internal fun providesDatabaseInteractor(
+        charactersDao: CharactersDao
+    ): DatabaseInteractor {
+        return DatabaseInteractor(charactersDao)
     }
 }

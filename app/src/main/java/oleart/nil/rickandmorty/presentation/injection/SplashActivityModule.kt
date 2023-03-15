@@ -3,6 +3,8 @@ package oleart.nil.rickandmorty.presentation.injection
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import oleart.nil.rickandmorty.db.CharactersDao
+import oleart.nil.rickandmorty.domain.DatabaseInteractor
 import oleart.nil.rickandmorty.domain.RickAndMortyInteractor
 import oleart.nil.rickandmorty.injection.scopes.PerActivity
 import oleart.nil.rickandmorty.presentation.splash.SplashActivity
@@ -23,6 +25,15 @@ open class SplashActivityModule {
     internal fun providesSplashPresenter(
         context: Context,
         interactor: RickAndMortyInteractor,
-        view: SplashContract.View
-    ): SplashContract.Presenter = SplashPresenter(context, interactor, view)
+        view: SplashContract.View,
+        databaseInteractor: DatabaseInteractor
+    ): SplashContract.Presenter = SplashPresenter(context, interactor, view, databaseInteractor)
+
+    @Provides
+    @PerActivity
+    internal fun providesDatabaseInteractor(
+        charactersDao: CharactersDao
+    ): DatabaseInteractor {
+        return DatabaseInteractor(charactersDao)
+    }
 }

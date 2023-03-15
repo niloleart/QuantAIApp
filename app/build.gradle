@@ -5,7 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
 }
-
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 32
@@ -65,12 +65,17 @@ dependencies {
 
     // import Kotlin API client BOM
     implementation platform('com.aallam.openai:openai-client-bom:3.1.0')
-
-    // define dependencies without versions
     implementation 'com.aallam.openai:openai-client'
     implementation 'io.ktor:ktor-client-okhttp'
-//    implementation "com.aallam.openai:openai-client:3.0.0"
-//    implementation 'io.ktor:ktor-client-okhttp'
+
+    // ROOM
+    def room_version = "2.4.0"
+
+//    implementation("androidx.room:room-runtime:$room_version")
+//    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

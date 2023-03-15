@@ -14,5 +14,6 @@ data class Character(
     val image: String,
     val episode: List<String>,
     val url: String,
-    val created: String //TODO parse date
+    val created: String, //TODO parse date
+    var description: String? = null
 ) : Serializable
