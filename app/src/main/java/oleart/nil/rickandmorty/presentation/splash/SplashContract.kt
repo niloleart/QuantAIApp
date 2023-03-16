@@ -1,6 +1,6 @@
 package oleart.nil.rickandmorty.presentation.splash
 
-import oleart.nil.rickandmorty.domain.model.Characters
+import oleart.nil.rickandmorty.domain.model.Character
 
 interface SplashContract {
 
@@ -14,6 +14,6 @@ interface SplashContract {
         fun showLoading()
         fun showError()
         fun hideLoading()
-        fun goToHome(characters: Characters)
+        fun goToHome(characters: MutableList<Character>)
     }
 }

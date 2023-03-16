@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import oleart.nil.rickandmorty.databinding.RowCharacterBinding
 import oleart.nil.rickandmorty.databinding.RowLoadingBinding
 import oleart.nil.rickandmorty.domain.model.Character
-import oleart.nil.rickandmorty.domain.model.Characters
+import oleart.nil.rickandmorty.ui.home.HomeContract.Presenter
 
 class CharactersAdapter(
     private val context: Context,
-    private val presenter: HomeContract.Presenter,
-    private val character: Characters,
+    private val presenter: Presenter,
+    private val characters: MutableList<Character?>,
     var listener: CharactersListener
 ) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -37,13 +37,13 @@ class CharactersAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (character.characters[position] == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        return if (characters[position] == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
-    override fun getItemCount() = character.characters.size
+    override fun getItemCount() = characters.size
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (holder is CharactersViewHolder) {
-            holder.bind(character.characters[position])
+            holder.bind(characters[position])
         } else {
             (holder as LoadingViewHolder).bind()
         }

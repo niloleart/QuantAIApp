@@ -1,11 +1,9 @@
 package oleart.nil.rickandmorty.ui
 
-import oleart.nil.rickandmorty.domain.model.Characters
-
+//TODO remove
 interface DataBaseContract {
 
     interface Presenter {
 
-        fun updateDB(characters: Characters)
     }
 }

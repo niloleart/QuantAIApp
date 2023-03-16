@@ -1,27 +1,33 @@
 package oleart.nil.rickandmorty.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import oleart.nil.rickandmorty.domain.model.Character
 
 @Dao
 interface CharactersDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(charactersEntity: CharactersEntity)
+    @Query("SELECT * FROM Characters")
+    suspend fun getAllCharacters(): List<CharacterEntity>
 
-    @Query("SELECT * FROM Characters ORDER BY uid ASC")
-    fun readCharacters(): CharactersEntity
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCharacter(character: CharacterEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(characters: List<CharacterEntity?>)
+
+    @Update
+    suspend fun updateCharacter(character: CharacterEntity)
+
+    @Delete
+    suspend fun deleteCharacter(character: CharacterEntity)
 
     @Query("SELECT COUNT(*) FROM Characters")
-    suspend fun getCharactersCount(): Int
+    suspend fun getCharacterCount(): Int
 
     @Query("DELETE FROM Characters")
     suspend fun deleteAllCharacters()
-
-    @Update
-    fun updateCharacter(character: Character)
 }

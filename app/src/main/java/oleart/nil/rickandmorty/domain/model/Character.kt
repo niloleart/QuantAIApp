@@ -1,5 +1,6 @@
 package oleart.nil.rickandmorty.domain.model
 
+import oleart.nil.rickandmorty.db.CharacterEntity
 import java.io.Serializable
 
 data class Character(
@@ -17,5 +18,24 @@ data class Character(
     val created: String, //TODO parse date
     var description: String? = null,
     var isFavorite: Boolean = false
+) : Serializable {
 
-) : Serializable
+    fun toCharacterEntity(): CharacterEntity {
+        return CharacterEntity(
+            id = this.id,
+            name = this.name,
+            status = this.status,
+            species = this.species,
+            type = this.type,
+            gender = this.gender,
+            origin = this.origin,
+            location = this.location,
+            image = this.image,
+            episode = this.episode,
+            url = this.url,
+            created = this.created,
+            description = this.description,
+            isFavorite = this.isFavorite
+        )
+    }
+}

@@ -3,6 +3,7 @@ package oleart.nil.rickandmorty.presentation.injection
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import oleart.nil.rickandmorty.data.preferences.AppSharedPreferences
 import oleart.nil.rickandmorty.db.CharactersDao
 import oleart.nil.rickandmorty.domain.DatabaseInteractor
 import oleart.nil.rickandmorty.domain.RickAndMortyInteractor
@@ -26,9 +27,10 @@ class HomeFragmentModule {
         view: HomeContract.View,
         context: Context,
         interactor: RickAndMortyInteractor,
-        databaseInteractor: DatabaseInteractor
+        databaseInteractor: DatabaseInteractor,
+        sharedPreferences: AppSharedPreferences
     ): HomeContract.Presenter {
-        return HomePresenter(view, context, interactor, databaseInteractor)
+        return HomePresenter(view, context, interactor, databaseInteractor, sharedPreferences)
     }
 
     @Provides

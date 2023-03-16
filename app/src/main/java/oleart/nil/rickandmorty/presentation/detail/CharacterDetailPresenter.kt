@@ -5,12 +5,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import oleart.nil.rickandmorty.base.errors.DataSourceError
-import oleart.nil.rickandmorty.base.errors.RickAndMortyError
-import oleart.nil.rickandmorty.db.CharactersEntity
 import oleart.nil.rickandmorty.domain.DatabaseInteractor
 import oleart.nil.rickandmorty.domain.RickAndMortyInteractor
 import oleart.nil.rickandmorty.domain.model.Character
-import oleart.nil.rickandmorty.domain.model.Characters
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -28,9 +25,9 @@ class CharacterDetailPresenter @Inject constructor(
         this.character = character
         if (this.character.description.isNullOrEmpty()) {
             launch {
-//                interactor.getCharacterDescription(character).either(
-//                    ::getCharacterDescriptionError, ::getCharacterDescriptionSuccess)
-                getCharacterDescriptionError(DataSourceError((RickAndMortyError())))
+                interactor.getCharacterDescription(character).either(
+                    ::getCharacterDescriptionError, ::getCharacterDescriptionSuccess
+                )
             }
         } else {
             getCharacterDescriptionSuccess(this.character.description!!)
@@ -38,20 +35,17 @@ class CharacterDetailPresenter @Inject constructor(
     }
 
     override fun addToFavorite(character: Character) {
-        //TODO
-//        databaseInteractor.addToFavorite(character)
+        databaseInteractor.update(character.toCharacterEntity())
     }
 
     private fun getCharacterDescriptionError(dataSourceError: DataSourceError) {
+        dataSourceError.error.message?.let { view.showError(it) }
         view.disableDescription()
+        view.showBasicData()
     }
 
     private fun getCharacterDescriptionSuccess(message: String) {
         character.description = message
         view.setDescription(message)
-    }
-
-    override fun updateDB(characters: Characters) {
-        databaseInteractor.update(CharactersEntity(info = characters.info, characters = characters.characters))
     }
 }

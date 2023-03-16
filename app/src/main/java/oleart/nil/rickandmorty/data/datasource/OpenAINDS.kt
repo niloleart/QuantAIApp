@@ -8,7 +8,6 @@ import com.aallam.openai.client.OpenAI
 import oleart.nil.rickandmorty.base.Either
 import oleart.nil.rickandmorty.base.errors.DataSourceError
 import oleart.nil.rickandmorty.base.errors.RickAndMortyError
-import oleart.nil.rickandmorty.base.errors.RickAndMortyException
 import javax.inject.Inject
 
 @OptIn(BetaOpenAI::class)
@@ -25,8 +24,8 @@ class OpenAINDS @Inject constructor(
             } else {
                 Either.Error(DataSourceError(RickAndMortyError()))
             }
-        } catch (e: RickAndMortyException) {
-            Either.Error(DataSourceError(RickAndMortyError()))
+        } catch (e: Exception) {
+            Either.Error(DataSourceError(RickAndMortyError("There has been an error generating the description")))
         }
     }
 }

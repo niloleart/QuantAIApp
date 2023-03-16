@@ -8,7 +8,7 @@ import oleart.nil.rickandmorty.base.hide
 import oleart.nil.rickandmorty.base.launchProcessActivity
 import oleart.nil.rickandmorty.base.show
 import oleart.nil.rickandmorty.databinding.ActivitySplashBinding
-import oleart.nil.rickandmorty.domain.model.Characters
+import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.presentation.splash.SplashContract.Presenter
 import javax.inject.Inject
 
@@ -46,7 +46,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(), SplashContract.Vie
         binding.llLoading.hide()
     }
 
-    override fun goToHome(characters: Characters) {
+    override fun goToHome(characters: MutableList<Character>) {
         val intent = MainActivity.makeIntent(this, characters)
         launchProcessActivity(intent)
     }

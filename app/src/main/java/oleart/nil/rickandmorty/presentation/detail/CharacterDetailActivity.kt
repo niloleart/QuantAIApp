@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -153,6 +154,13 @@ class CharacterDetailActivity :
             llLoading.hide()
             tvDescription.hide()
         }
+    }
+
+    override fun showBasicData() {
+    }
+
+    override fun showError(string: String) {
+        Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
     }
 
     private fun resultCharacterFavorite() {
