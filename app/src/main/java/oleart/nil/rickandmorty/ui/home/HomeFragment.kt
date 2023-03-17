@@ -1,6 +1,7 @@
 package oleart.nil.rickandmorty.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,6 +18,7 @@ import oleart.nil.rickandmorty.databinding.FragmentHomeBinding
 import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity
 import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity.Companion.RESULT_CHAR_ID
+import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity.Companion.RESULT_DESCRIPTION
 import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity.Companion.RESULT_FAV
 import oleart.nil.rickandmorty.ui.home.HomeContract.Presenter
 import javax.inject.Inject
@@ -113,23 +115,49 @@ class HomeFragment(private var characters: MutableList<Character?>) :
     }
 
     override fun onClick(character: Character) {
+        presenter.onCharacterClick(character)
+    }
+
+    override fun setCharacter(character: Character) {
+        goToCharacterDetailActivity(character)
+    }
+
+    override fun setCharacterFromDB(character: Character) {
+        goToCharacterDetailActivity(character)
+    }
+
+    private fun goToCharacterDetailActivity(character: Character) {
         val intent = CharacterDetailActivity.makeIntent(context, character)
         launchModalActivity(intent, detailCharacterResultLauncher)
     }
 
     private fun resultCharacterDetail(activityResult: ActivityResult?) {
+        var id: Int?
         activityResult?.let {
-            val isFaved = activityResult.data?.getBooleanExtra(RESULT_FAV, false)
-            isFaved.let {
-                val id = activityResult.data?.getIntExtra(RESULT_CHAR_ID, -1)
-                val favedChar: Character? = characters.find { it!!.id == id }
-                favedChar?.let {
-                    it.isFavorite = isFaved!!
+            it.data?.let { intent ->
+                id = intent.getIntExtra(RESULT_CHAR_ID, -1)
+
+                val description = intent.getStringExtra(RESULT_DESCRIPTION)
+                description?.isNotEmpty()?.let {
+                    characters.find { it!!.id == id }?.description = description
+
                 }
-                val index: Int = characters.indexOf(favedChar)
-                adapter.notifyItemChanged(index)
+
+                val isFaved = intent.getBooleanExtra(RESULT_FAV, false)
+                isFaved.let {
+                    val favedChar: Character? = characters.find { it!!.id == id }
+                    favedChar?.let {
+                        it.isFavorite = isFaved
+                    }
+                    val index: Int = characters.indexOf(favedChar)
+                    adapter.notifyItemChanged(index)
+                }
             }
+
         }
+    }
+
+    private fun setFaved(data: Intent) {
     }
 
     override fun showError() {

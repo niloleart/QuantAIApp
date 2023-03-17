@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "774797484783",
+    "project_id": "quanaiapp",
+    "storage_bucket": "quanaiapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774797484783:android:e1bdca7c805447d9d8b11a",
+        "android_client_info": {
+          "package_name": "oleart.nil.rickandmorty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774797484783-oqov5mag9rcdu66cdjh5jln6qllvg90u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkKWMYe9UMiMO-6lapAu-J5YxkyqiEHAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774797484783-oqov5mag9rcdu66cdjh5jln6qllvg90u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

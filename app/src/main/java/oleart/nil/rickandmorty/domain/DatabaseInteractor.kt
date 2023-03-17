@@ -15,6 +15,11 @@ class DatabaseInteractor(
         return characterEntities.map { it.toCharacter() }.toMutableList()
     }
 
+    suspend fun getCharacter(id: Int): Character {
+        val characterEntity = charactersDao.getCharacterById(id)
+        return characterEntity.toCharacter()
+    }
+
     fun saveCharacters(charactersEntity: List<CharacterEntity?>) {
         launch {
             charactersDao.insertAll(charactersEntity)

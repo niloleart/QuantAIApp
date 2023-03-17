@@ -8,16 +8,18 @@ import com.aallam.openai.client.OpenAI
 import oleart.nil.rickandmorty.base.Either
 import oleart.nil.rickandmorty.base.errors.DataSourceError
 import oleart.nil.rickandmorty.base.errors.RickAndMortyError
+import oleart.nil.rickandmorty.remoteconfiguration.RemoteConfiguration
 import javax.inject.Inject
 
 @OptIn(BetaOpenAI::class)
 class OpenAINDS @Inject constructor(
-    val context: Context
+    val context: Context,
+    private val remoteConfiguration: RemoteConfiguration
 ) : NDS<ChatCompletionRequest, Either<DataSourceError, String>>() {
 
     override suspend fun getData(request: ChatCompletionRequest): Either<DataSourceError, String> {
-        val openAI = OpenAI("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") //TODO do not commit
         return try {
+            val openAI = OpenAI(remoteConfiguration.getOpenAIKey())
             val completion: ChatCompletion = openAI.chatCompletion(request)
             if (completion.choices[0].message != null && completion.choices[0].message!!.content.isNotEmpty()) {
                 Either.Success(completion.choices[0].message!!.content)

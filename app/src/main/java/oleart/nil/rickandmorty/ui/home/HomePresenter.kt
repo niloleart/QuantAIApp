@@ -47,6 +47,18 @@ class HomePresenter(
         databaseInteractor.saveCharacters(entities)
     }
 
+    override fun onCharacterClick(character: Character) {
+        var dbCharacter: Character? = null
+        launch {
+            dbCharacter = databaseInteractor.getCharacter(character.id)
+            if (dbCharacter != null) {
+                view.setCharacterFromDB(dbCharacter!!)
+            } else {
+                view.setCharacter(character)
+            }
+        }
+    }
+
     private fun getMoreCharactersError(dataSourceError: DataSourceError) {
         view.hideLoading()
         view.showError()

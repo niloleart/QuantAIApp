@@ -1,6 +1,7 @@
 package oleart.nil.rickandmorty.presentation.splash
 
 import android.os.Bundle
+import com.google.firebase.FirebaseApp
 import dagger.android.AndroidInjection
 import oleart.nil.rickandmorty.MainActivity
 import oleart.nil.rickandmorty.base.BaseActivity
@@ -28,6 +29,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(), SplashContract.Vie
     override fun bindToolbar() = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        FirebaseApp.initializeApp(this)
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         presenter.initialize()

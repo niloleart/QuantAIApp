@@ -32,6 +32,7 @@ class CharacterDetailActivity :
 
         const val RESULT_FAV = "result_favorite"
         const val RESULT_CHAR_ID = "result_character_id"
+        const val RESULT_DESCRIPTION = "result_character_description"
         private const val EXTRA_CHARACTER = "EXTRA_CHARACTER"
 
         fun makeIntent(context: Context?, character: Character): Intent {
@@ -75,6 +76,11 @@ class CharacterDetailActivity :
             setCollapsedTitleTextColor(getColor(R.color.white))
             setExpandedTitleColor(getColor(R.color.white))
         }
+    }
+
+    override fun onBackPressed() {
+        presenter.onBackPressed()
+        super.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -144,6 +150,7 @@ class CharacterDetailActivity :
     }
 
     override fun setDescription(description: String) {
+        character.description = description
         binding.content.tvDescription.show()
         binding.content.tvDescription.text = description
         binding.content.llLoading.hide()
@@ -166,6 +173,7 @@ class CharacterDetailActivity :
     private fun resultCharacterFavorite() {
         val intent = Intent()
             .putExtra(RESULT_FAV, character.isFavorite)
+            .putExtra(RESULT_DESCRIPTION, character.description)
             .putExtra(RESULT_CHAR_ID, character.id)
         setResult(Activity.RESULT_OK, intent)
     }

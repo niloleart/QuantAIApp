@@ -8,6 +8,7 @@ interface CharacterDetailContract {
     interface Presenter : DataBaseContract.Presenter {
         fun getDescription(character: Character)
         fun addToFavorite(character: Character)
+        fun onBackPressed()
     }
 
     interface View {

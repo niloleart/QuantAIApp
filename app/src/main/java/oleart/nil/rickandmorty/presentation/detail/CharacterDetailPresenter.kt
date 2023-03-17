@@ -1,9 +1,9 @@
 package oleart.nil.rickandmorty.presentation.detail
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import oleart.nil.rickandmorty.base.BaseCoroutine
 import oleart.nil.rickandmorty.base.errors.DataSourceError
 import oleart.nil.rickandmorty.domain.DatabaseInteractor
 import oleart.nil.rickandmorty.domain.RickAndMortyInteractor
@@ -15,7 +15,7 @@ class CharacterDetailPresenter @Inject constructor(
     private val interactor: RickAndMortyInteractor,
     private val view: CharacterDetailContract.View,
     private val databaseInteractor: DatabaseInteractor
-) : CharacterDetailContract.Presenter, CoroutineScope {
+) : CharacterDetailContract.Presenter, BaseCoroutine() {
 
     private lateinit var character: Character
 
@@ -30,12 +30,16 @@ class CharacterDetailPresenter @Inject constructor(
                 )
             }
         } else {
-            getCharacterDescriptionSuccess(this.character.description!!)
+            setDescription()
         }
     }
 
     override fun addToFavorite(character: Character) {
         databaseInteractor.update(character.toCharacterEntity())
+    }
+
+    override fun onBackPressed() {
+        super.stopCoroutine()
     }
 
     private fun getCharacterDescriptionError(dataSourceError: DataSourceError) {
@@ -46,6 +50,11 @@ class CharacterDetailPresenter @Inject constructor(
 
     private fun getCharacterDescriptionSuccess(message: String) {
         character.description = message
-        view.setDescription(message)
+        databaseInteractor.update(character.toCharacterEntity())
+        setDescription()
+    }
+
+    private fun setDescription() {
+        view.setDescription(character.description!!)
     }
 }
