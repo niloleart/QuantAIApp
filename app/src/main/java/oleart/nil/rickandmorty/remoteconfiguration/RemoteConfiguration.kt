@@ -14,7 +14,7 @@ class RemoteConfiguration @Inject constructor(
     }
 
     fun getOpenAIKey(): String {
-//        forceRetrieveImmediateChanges()
+        forceRetrieveImmediateChanges()
         return firebaseRemoteConfig.getString(OPEN_AI_KEY)
     }
 

@@ -1,13 +1,11 @@
 package oleart.nil.rickandmorty.ui.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,13 +14,9 @@ import io.ktor.util.toLowerCasePreservingASCIIRules
 import oleart.nil.rickandmorty.R
 import oleart.nil.rickandmorty.base.BaseFragment
 import oleart.nil.rickandmorty.base.launchModalActivity
-import oleart.nil.rickandmorty.base.registerActivityResult
 import oleart.nil.rickandmorty.databinding.FragmentHomeBinding
 import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity
-import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity.Companion.RESULT_CHAR_ID
-import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity.Companion.RESULT_DESCRIPTION
-import oleart.nil.rickandmorty.presentation.detail.CharacterDetailActivity.Companion.RESULT_FAV
 import oleart.nil.rickandmorty.ui.home.HomeContract.Presenter
 import javax.inject.Inject
 
@@ -33,16 +27,13 @@ class HomeFragment(private var characters: MutableList<Character?>) :
     @Inject
     lateinit var presenter: Presenter
 
-    private val detailCharacterResultLauncher = registerActivityResult(::resultCharacterDetail)
-
     private lateinit var adapter: CharactersAdapter
     private var isLoading = false
     private var lastLoadedPage = 1
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
-        //TODO
-//        lastLoadedPage = presenter.getLastLoadedPage(characters.info.nextPage)
+        presenter.setInitCharacters(characters)
         lastLoadedPage = 1
         super.onAttach(context)
     }
@@ -124,7 +115,7 @@ class HomeFragment(private var characters: MutableList<Character?>) :
         presenter.getMoreCharacters(lastLoadedPage)
     }
 
-    override fun addMoreCharacters(characters: MutableList<Character>) {
+    override fun addMoreCharacters(characters: MutableList<Character?>) {
         Handler(Looper.getMainLooper()).postDelayed(
             {
                 this.characters.removeAt(this.characters.size - 1)
@@ -153,8 +144,13 @@ class HomeFragment(private var characters: MutableList<Character?>) :
     }
 
     override fun onPause() {
-        presenter.updateDB(characters)
+//        presenter.updateDB(characters)
         super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.getAllCharacters(characters)
     }
 
     override fun onClick(character: Character) {
@@ -171,40 +167,18 @@ class HomeFragment(private var characters: MutableList<Character?>) :
 
     private fun goToCharacterDetailActivity(character: Character) {
         val intent = CharacterDetailActivity.makeIntent(context, character)
-        launchModalActivity(intent, detailCharacterResultLauncher)
-    }
-
-    private fun resultCharacterDetail(activityResult: ActivityResult?) {
-        var id: Int?
-        activityResult?.let {
-            it.data?.let { intent ->
-                id = intent.getIntExtra(RESULT_CHAR_ID, -1)
-
-                val description = intent.getStringExtra(RESULT_DESCRIPTION)
-                description?.isNotEmpty()?.let {
-                    characters.find { it!!.id == id }?.description = description
-
-                }
-
-                val isFaved = intent.getBooleanExtra(RESULT_FAV, false)
-                isFaved.let {
-                    val favedChar: Character? = characters.find { it!!.id == id }
-                    favedChar?.let {
-                        it.isFavorite = isFaved
-                    }
-                    val index: Int = characters.indexOf(favedChar)
-                    adapter.notifyItemChanged(index)
-                }
-            }
-
-        }
-    }
-
-    private fun setFaved(data: Intent) {
+        launchModalActivity(intent)
     }
 
     override fun showError() {
         Toast.makeText(context, "There has been an error", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateRV(characters: MutableList<Character?>, indexs: List<Int>) {
+        for (index in indexs) {
+//            this.characters[index] = characters[index]
+            adapter.notifyItemChanged(index)
+        }
     }
 
     override fun hideLoading() {

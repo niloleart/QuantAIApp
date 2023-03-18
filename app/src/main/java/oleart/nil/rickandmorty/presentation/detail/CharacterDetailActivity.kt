@@ -1,6 +1,5 @@
 package oleart.nil.rickandmorty.presentation.detail
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -19,11 +18,14 @@ import oleart.nil.rickandmorty.databinding.ActivityCharacterDetailBinding
 import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.presentation.detail.CharacterDetailContract.Presenter
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class CharacterDetailActivity :
     BaseActivity<ActivityCharacterDetailBinding>(), CharacterDetailContract.View {
 
     private lateinit var character: Character
+    private var isFavorite by Delegates.notNull<Boolean>()
+    private lateinit var description: String
 
     @Inject
     lateinit var presenter: Presenter
@@ -51,19 +53,17 @@ class CharacterDetailActivity :
 
     override fun bindToolbar() = binding.toolbar
 
-    override fun onPause() {
-        presenter.addToFavorite(character)
-        super.onPause()
-    }
-
     override fun finish() {
-        resultCharacterFavorite()
+        if (isFavorite != character.isFavorite || (character.description != null && description != character.description)) {
+            presenter.updateCharacter(character)
+        }
         super.finish()
         overridePendingTransition(R.anim.slide_in_bottom_activity, R.anim.slide_out_bottom_activity)
     }
 
     private fun getExtras() {
         this.character = intent.getSerializableExtra(EXTRA_CHARACTER) as Character
+        isFavorite = character.isFavorite
     }
 
     private fun setUpToolbar() {
@@ -170,11 +170,4 @@ class CharacterDetailActivity :
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
     }
 
-    private fun resultCharacterFavorite() {
-        val intent = Intent()
-            .putExtra(RESULT_FAV, character.isFavorite)
-            .putExtra(RESULT_DESCRIPTION, character.description)
-            .putExtra(RESULT_CHAR_ID, character.id)
-        setResult(Activity.RESULT_OK, intent)
-    }
 }

@@ -38,6 +38,10 @@ class CharacterDetailPresenter @Inject constructor(
         databaseInteractor.update(character.toCharacterEntity())
     }
 
+    override fun updateCharacter(character: Character) {
+        databaseInteractor.update(character.toCharacterEntity())
+    }
+
     override fun onBackPressed() {
         super.stopCoroutine()
     }

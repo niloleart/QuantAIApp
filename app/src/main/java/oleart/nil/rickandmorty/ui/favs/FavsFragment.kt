@@ -42,7 +42,6 @@ class FavsFragment() : BaseFragment<FragmentFavsBinding>(FragmentFavsBinding::in
 
     override fun onResume() {
         presenter.getFavCharacters()
-
         super.onResume()
     }
 

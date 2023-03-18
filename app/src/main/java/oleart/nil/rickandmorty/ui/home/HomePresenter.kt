@@ -22,8 +22,12 @@ class HomePresenter(
 ) : HomeContract.Presenter, CoroutineScope {
 
     override val coroutineContext: CoroutineContext = Dispatchers.Main + SupervisorJob()
-
+    private lateinit var characters: MutableList<Character?>
     private var lastLoadedPage = 0
+
+    override fun setInitCharacters(characters: MutableList<Character?>) {
+        this.characters = characters
+    }
 
     override fun getMoreCharacters(actualPage: Int) {
         launch {
@@ -43,7 +47,8 @@ class HomePresenter(
     }
 
     override fun updateDB(characters: MutableList<Character?>) {
-        val entities = characters.map { it!!.toCharacterEntity() }.toMutableList()
+        this.characters = characters
+        val entities = this.characters.map { it!!.toCharacterEntity() }.toMutableList()
         databaseInteractor.saveCharacters(entities)
     }
 
@@ -59,13 +64,38 @@ class HomePresenter(
         }
     }
 
+    override fun getAllCharacters(characters: MutableList<Character?>) {
+        launch {
+            val databaseCharacters = databaseInteractor.getStoredCharacters()
+            needsUpdate(databaseCharacters)
+        }
+    }
+
+    private fun needsUpdate(databaseCharacters: MutableList<Character>) {
+        val diffCharacters = databaseCharacters.minus(characters)
+        if (diffCharacters.isNotEmpty()) {
+            val indexs = diffCharacters.map { it!!.id - 1 }
+            for (index in indexs) {
+                characters[index] = diffCharacters.find {
+                    it!!.id == characters[index]!!.id
+                }
+            }
+            updateRV(characters, indexs)
+        }
+    }
+
+    private fun updateRV(characters: MutableList<Character?>, indexs: List<Int>) {
+        view.updateRV(characters, indexs)
+    }
+
     private fun getMoreCharactersError(dataSourceError: DataSourceError) {
         view.hideLoading()
         view.showError()
     }
 
     private fun getMoreCharactersSuccess(characters: Characters) {
+        this.characters = characters.characters.toMutableList()
         setLastLoadedPage()
-        view.addMoreCharacters(characters.characters)
+        view.addMoreCharacters(this.characters)
     }
 }
