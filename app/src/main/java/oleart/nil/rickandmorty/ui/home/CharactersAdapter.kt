@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import oleart.nil.rickandmorty.databinding.RowCharacterBinding
 import oleart.nil.rickandmorty.databinding.RowLoadingBinding
 import oleart.nil.rickandmorty.domain.model.Character
-import oleart.nil.rickandmorty.ui.home.HomeContract.Presenter
+import oleart.nil.rickandmorty.ui.CharactersContract
 
 class CharactersAdapter(
     private val context: Context,
-    private val presenter: Presenter,
-    private val characters: MutableList<Character?>,
+    private val presenter: CharactersContract.Presenter,
+    private var characters: MutableList<Character?>,
     var listener: CharactersListener
 ) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -47,5 +47,10 @@ class CharactersAdapter(
         } else {
             (holder as LoadingViewHolder).bind()
         }
+    }
+
+    fun filterList(filteredCharacters: MutableList<Character?>) {
+        characters = filteredCharacters
+        notifyDataSetChanged()
     }
 }

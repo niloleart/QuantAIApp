@@ -6,6 +6,13 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/home_toolbar"
+        style="@style/AppTheme.BaseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_characters"
         android:layout_width="match_parent"

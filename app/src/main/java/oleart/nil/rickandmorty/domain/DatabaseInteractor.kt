@@ -26,6 +26,11 @@ class DatabaseInteractor(
         }
     }
 
+    suspend fun getFavCharacters(): List<Character?> {
+        val charactersEntities = charactersDao.getFavCharacters()
+        return charactersEntities.map { it.toCharacter() }
+    }
+
     suspend fun getCharactersCount(): Int {
         return charactersDao.getCharacterCount()
     }

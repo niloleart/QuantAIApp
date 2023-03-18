@@ -1,14 +1,10 @@
 package oleart.nil.rickandmorty.remoteconfiguration
 
-import android.content.Context
-import android.os.Bundle
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings.Builder
 import javax.inject.Inject
 
 class RemoteConfiguration @Inject constructor(
-    private var context: Context,
     private var firebaseRemoteConfig: FirebaseRemoteConfig
 ) {
 
@@ -18,11 +14,11 @@ class RemoteConfiguration @Inject constructor(
     }
 
     fun getOpenAIKey(): String {
-        val firebaseAnalytics = FirebaseAnalytics.getInstance(context)
-        val bundle: Bundle = Bundle()
-        bundle.putString("test_param", "test_value")
-        firebaseAnalytics.logEvent("test_event", bundle)
+//        forceRetrieveImmediateChanges()
+        return firebaseRemoteConfig.getString(OPEN_AI_KEY)
+    }
 
+    private fun forceRetrieveImmediateChanges() {
         val configSettings = Builder()
             .setMinimumFetchIntervalInSeconds(0)
             .build()
@@ -36,8 +32,5 @@ class RemoteConfiguration @Inject constructor(
                 // Failed to fetch values
             }
         }
-
-        val key = firebaseRemoteConfig.getString(OPEN_AI_KEY)
-        return key
     }
 }

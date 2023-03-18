@@ -1,11 +1,12 @@
 package oleart.nil.rickandmorty.ui.home
 
 import oleart.nil.rickandmorty.domain.model.Character
+import oleart.nil.rickandmorty.ui.CharactersContract
 import oleart.nil.rickandmorty.ui.DataBaseContract
 
-interface HomeContract {
+interface HomeContract : CharactersContract {
 
-    interface Presenter : DataBaseContract.Presenter {
+    interface Presenter : CharactersContract.Presenter, DataBaseContract.Presenter {
 
         fun getMoreCharacters(actualPage: Int)
         fun getLastLoadedPage(): Int

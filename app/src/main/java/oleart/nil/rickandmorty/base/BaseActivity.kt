@@ -53,15 +53,15 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         supportActionBar?.let { actionBar ->
             when (getTypeActionBar()) {
                 HOME -> {
-                    menuInflater.inflate(R.menu.home, menu)
+                    menuInflater.inflate(R.menu.toolbar_home, menu)
                     val item = menu?.findItem(R.id.actionbar_menu_search)
                 }
                 PROCESS -> {
-                    menuInflater.inflate(R.menu.menu_process, menu)
+                    menuInflater.inflate(R.menu.toolbar_process, menu)
 //                    setCancelButton(menu)
                 }
                 DETAIL -> {
-                    menuInflater.inflate(R.menu.menu_detail, menu)
+                    menuInflater.inflate(R.menu.toolbar_detail, menu)
                 }
                 NONE -> actionBar.hide()
                 else -> {

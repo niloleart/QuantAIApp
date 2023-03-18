@@ -8,9 +8,12 @@ import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
+import io.ktor.util.toLowerCasePreservingASCIIRules
+import oleart.nil.rickandmorty.R
 import oleart.nil.rickandmorty.base.BaseFragment
 import oleart.nil.rickandmorty.base.launchModalActivity
 import oleart.nil.rickandmorty.base.registerActivityResult
@@ -46,8 +49,50 @@ class HomeFragment(private var characters: MutableList<Character?>) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setToolbar()
         setRV()
         initScrollListener()
+    }
+
+    private fun setToolbar() {
+        with(binding.homeToolbar) {
+            inflateMenu(R.menu.toolbar_home)
+            title = "Characters"
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.actionbar_menu_search -> {
+                        val searchView: SearchView = it.actionView as SearchView
+                        searchView.queryHint = "Search"
+                        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(query: String?): Boolean {
+                                return false
+                            }
+
+                            override fun onQueryTextChange(query: String?): Boolean {
+                                query?.let { q -> filter(q) }
+                                return true
+                            }
+                        })
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+            }
+        }
+    }
+
+    private fun filter(query: String) {
+        val filteredCharacters = mutableListOf<Character?>()
+        for (character in characters) {
+            if (character?.name!!.toLowerCasePreservingASCIIRules()
+                    .contains(query.toLowerCasePreservingASCIIRules())
+            ) {
+                filteredCharacters.add(character)
+            }
+        }
+        adapter.filterList(filteredCharacters)
     }
 
     private fun setRV() {
@@ -80,8 +125,6 @@ class HomeFragment(private var characters: MutableList<Character?>) :
     }
 
     override fun addMoreCharacters(characters: MutableList<Character>) {
-//        this.characters.info = characters.info
-
         Handler(Looper.getMainLooper()).postDelayed(
             {
                 this.characters.removeAt(this.characters.size - 1)
@@ -98,7 +141,7 @@ class HomeFragment(private var characters: MutableList<Character?>) :
                 adapter.notifyDataSetChanged()
                 isLoading = false
                 updateDB()
-            }, 2000
+            }, 500
         )
     }
 

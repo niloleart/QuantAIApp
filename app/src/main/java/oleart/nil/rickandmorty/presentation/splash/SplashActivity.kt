@@ -3,7 +3,6 @@ package oleart.nil.rickandmorty.presentation.splash
 import android.os.Bundle
 import com.google.firebase.FirebaseApp
 import dagger.android.AndroidInjection
-import oleart.nil.rickandmorty.MainActivity
 import oleart.nil.rickandmorty.base.BaseActivity
 import oleart.nil.rickandmorty.base.hide
 import oleart.nil.rickandmorty.base.launchProcessActivity
@@ -11,6 +10,7 @@ import oleart.nil.rickandmorty.base.show
 import oleart.nil.rickandmorty.databinding.ActivitySplashBinding
 import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.presentation.splash.SplashContract.Presenter
+import oleart.nil.rickandmorty.ui.main.MainActivity
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(), SplashContract.View {
