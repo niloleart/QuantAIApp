@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,22 +55,40 @@ class HomeFragment(private var characters: MutableList<Character?>) :
                     R.id.actionbar_menu_search -> {
                         val searchView: SearchView = it.actionView as SearchView
                         searchView.queryHint = "Search"
-                        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                            override fun onQueryTextSubmit(query: String?): Boolean {
-                                return false
-                            }
-
-                            override fun onQueryTextChange(query: String?): Boolean {
-                                query?.let { q -> filter(q) }
-                                return true
-                            }
-                        })
+                        setCloseButton(searchView)
+                        setSearchListeners(searchView)
                         true
                     }
                     else -> {
                         false
                     }
                 }
+            }
+        }
+    }
+
+    private fun setSearchListeners(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                query?.let { q -> filter(q) }
+                return true
+            }
+        })
+    }
+
+    private fun setCloseButton(searchView: SearchView) {
+        with(searchView) {
+            val searchCloseButtonId = findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn).id
+            val closeButton = findViewById<ImageView>(searchCloseButtonId)
+            closeButton.setOnClickListener {
+                setQuery("", false)
+                clearFocus()
+                binding.homeToolbar.collapseActionView()
+                onActionViewCollapsed()
             }
         }
     }
@@ -143,11 +162,6 @@ class HomeFragment(private var characters: MutableList<Character?>) :
         }
     }
 
-    override fun onPause() {
-//        presenter.updateDB(characters)
-        super.onPause()
-    }
-
     override fun onResume() {
         super.onResume()
         presenter.getAllCharacters(characters)
@@ -176,7 +190,6 @@ class HomeFragment(private var characters: MutableList<Character?>) :
 
     override fun updateRV(characters: MutableList<Character?>, indexs: List<Int>) {
         for (index in indexs) {
-//            this.characters[index] = characters[index]
             adapter.notifyItemChanged(index)
         }
     }

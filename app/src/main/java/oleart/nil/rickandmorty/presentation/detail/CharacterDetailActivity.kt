@@ -1,5 +1,6 @@
 package oleart.nil.rickandmorty.presentation.detail
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -25,7 +26,7 @@ class CharacterDetailActivity :
 
     private lateinit var character: Character
     private var isFavorite by Delegates.notNull<Boolean>()
-    private lateinit var description: String
+    private var description: String = ""
 
     @Inject
     lateinit var presenter: Presenter
@@ -64,6 +65,7 @@ class CharacterDetailActivity :
     private fun getExtras() {
         this.character = intent.getSerializableExtra(EXTRA_CHARACTER) as Character
         isFavorite = character.isFavorite
+        character.description?.let { description = it }
     }
 
     private fun setUpToolbar() {
@@ -79,6 +81,7 @@ class CharacterDetailActivity :
     }
 
     override fun onBackPressed() {
+        resultDetailActivity()
         presenter.onBackPressed()
         super.onBackPressed()
     }
@@ -170,4 +173,9 @@ class CharacterDetailActivity :
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
     }
 
+    private fun resultDetailActivity() {
+        val intent = Intent()
+            .putExtra(RESULT_CHAR_ID, character.id)
+        setResult(Activity.RESULT_OK, intent)
+    }
 }

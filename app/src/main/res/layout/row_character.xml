@@ -60,12 +60,6 @@
                         tools:text="Human" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/iv_fav"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:src="@android:drawable/star_big_off" />
             </LinearLayout>
 
 

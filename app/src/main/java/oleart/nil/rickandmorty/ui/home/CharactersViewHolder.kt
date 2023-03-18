@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import oleart.nil.rickandmorty.R
-import oleart.nil.rickandmorty.base.hide
-import oleart.nil.rickandmorty.base.show
 import oleart.nil.rickandmorty.databinding.RowCharacterBinding
 import oleart.nil.rickandmorty.domain.model.Character
 import oleart.nil.rickandmorty.ui.home.CharactersAdapter.CharactersListener
@@ -35,16 +33,6 @@ class CharactersViewHolder(
         }
         binding.llParent.setOnClickListener {
             listener.onClick(character)
-        }
-        paintFav()
-    }
-
-    private fun paintFav() {
-        if (character.isFavorite) {
-            binding.ivFav.show()
-            binding.ivFav.setImageResource(android.R.drawable.star_big_on)
-        } else {
-            binding.ivFav.hide()
         }
     }
 }
