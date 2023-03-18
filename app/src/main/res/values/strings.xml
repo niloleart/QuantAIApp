@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">QuantAIApp</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_favs">Favorites</string>
+    <string name="title_search">Search</string>
     <string name="title_notifications">Notifications</string>
+    <string name="gpt_loading_text">Generating character description using ChatGPT-3.5...\nIt may take some seconds...</string>
+    <string name="gpt_error_text">OH JEEZ!\nThere has been an error generating the description.</string>
+    <string name="text_retry">Retry</string>
+    <string name="get_data_text">Getting data...</string>
+    <string name="generic_error_text">There has been an error...</string>
+    <string name="no_favs_placeholder">There are no favorite characters\nAdd some!</string>
 </resources>

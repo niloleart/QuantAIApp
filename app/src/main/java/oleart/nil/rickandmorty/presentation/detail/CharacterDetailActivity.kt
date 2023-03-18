@@ -1,6 +1,5 @@
 package oleart.nil.rickandmorty.presentation.detail
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -33,9 +32,6 @@ class CharacterDetailActivity :
 
     companion object {
 
-        const val RESULT_FAV = "result_favorite"
-        const val RESULT_CHAR_ID = "result_character_id"
-        const val RESULT_DESCRIPTION = "result_character_description"
         private const val EXTRA_CHARACTER = "EXTRA_CHARACTER"
 
         fun makeIntent(context: Context?, character: Character): Intent {
@@ -81,7 +77,6 @@ class CharacterDetailActivity :
     }
 
     override fun onBackPressed() {
-        resultDetailActivity()
         presenter.onBackPressed()
         super.onBackPressed()
     }
@@ -94,9 +89,9 @@ class CharacterDetailActivity :
             }
             R.id.actionbar_menu_fav -> {
                 if (character.isFavorite) {
-                    item.setIcon(android.R.drawable.star_big_off)
+                    item.setIcon(R.drawable.ic_fav_off)
                 } else {
-                    item.setIcon(android.R.drawable.star_big_on)
+                    item.setIcon(R.drawable.ic_fav_on)
                 }
                 character.isFavorite = !character.isFavorite
             }
@@ -126,9 +121,9 @@ class CharacterDetailActivity :
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         if (character.isFavorite) {
-            menu?.findItem(R.id.actionbar_menu_fav)?.setIcon(android.R.drawable.star_big_on)
+            menu?.findItem(R.id.actionbar_menu_fav)?.setIcon(R.drawable.ic_fav_on)
         } else {
-            menu?.findItem(R.id.actionbar_menu_fav)?.setIcon(android.R.drawable.star_big_off)
+            menu?.findItem(R.id.actionbar_menu_fav)?.setIcon(R.drawable.ic_fav_off)
         }
         return true
     }
@@ -154,9 +149,12 @@ class CharacterDetailActivity :
 
     override fun setDescription(description: String) {
         character.description = description
-        binding.content.tvDescription.show()
-        binding.content.tvDescription.text = description
-        binding.content.llLoading.hide()
+        with(binding.content) {
+            tvDescription.show()
+            tvDescription.text = description
+            llLoading.hide()
+            llPlaceholder.hide()
+        }
     }
 
     override fun disableDescription() {
@@ -166,16 +164,24 @@ class CharacterDetailActivity :
         }
     }
 
-    override fun showBasicData() {
+    override fun showPlaceholder() {
+        with(binding.content) {
+            llPlaceholder.show()
+            btRetry.setOnClickListener {
+                presenter.getDescription(character)
+
+            }
+        }
+    }
+
+    override fun showLoading() {
+        with(binding.content) {
+            llLoading.show()
+            llPlaceholder.hide()
+        }
     }
 
     override fun showError(string: String) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun resultDetailActivity() {
-        val intent = Intent()
-            .putExtra(RESULT_CHAR_ID, character.id)
-        setResult(Activity.RESULT_OK, intent)
     }
 }

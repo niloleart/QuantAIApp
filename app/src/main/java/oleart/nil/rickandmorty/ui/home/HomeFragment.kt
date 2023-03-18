@@ -185,7 +185,7 @@ class HomeFragment(private var characters: MutableList<Character?>) :
     }
 
     override fun showError() {
-        Toast.makeText(context, "There has been an error", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context?.getString(R.string.generic_error_text), Toast.LENGTH_SHORT).show()
     }
 
     override fun updateRV(characters: MutableList<Character?>, indexs: List<Int>) {

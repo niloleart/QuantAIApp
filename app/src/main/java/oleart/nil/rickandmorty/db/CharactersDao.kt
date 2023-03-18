@@ -36,4 +36,7 @@ interface CharactersDao {
 
     @Query("DELETE FROM Characters")
     suspend fun deleteAllCharacters()
+
+    @Query("UPDATE Characters SET isFavorite = 0 WHERE isFavorite = 1")
+    suspend fun deleteAllFavorites()
 }

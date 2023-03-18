@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/actionbar_menu_search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/title_search"
         support:actionViewClass="androidx.appcompat.widget.SearchView"
         support:showAsAction="always|collapseActionView" />
 

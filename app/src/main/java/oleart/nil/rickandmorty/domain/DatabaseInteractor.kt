@@ -31,6 +31,10 @@ class DatabaseInteractor(
         return charactersEntities.map { it.toCharacter() }
     }
 
+    suspend fun deleteAllFavorites() {
+        charactersDao.deleteAllFavorites()
+    }
+
     suspend fun getCharactersCount(): Int {
         return charactersDao.getCharacterCount()
     }
@@ -39,14 +43,4 @@ class DatabaseInteractor(
         launch {
             charactersDao.insertCharacter(charactersEntity)
         }
-
-    fun addToFavorite(character: Character) {
-        launch {
-//            charactersDao.updateCharacter(character)
-        }
-    }
-
-    suspend fun deleteAll() = charactersDao.deleteAllCharacters()
-
-//    suspend fun getCharactersCount() = charactersDao.getCharactersCount()
 }

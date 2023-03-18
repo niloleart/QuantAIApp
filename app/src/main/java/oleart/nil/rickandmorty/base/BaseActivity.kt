@@ -54,11 +54,9 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
             when (getTypeActionBar()) {
                 HOME -> {
                     menuInflater.inflate(R.menu.toolbar_home, menu)
-                    val item = menu?.findItem(R.id.actionbar_menu_search)
                 }
                 PROCESS -> {
-                    menuInflater.inflate(R.menu.toolbar_process, menu)
-//                    setCancelButton(menu)
+                    menuInflater.inflate(R.menu.toolbar_favs, menu)
                 }
                 DETAIL -> {
                     menuInflater.inflate(R.menu.toolbar_detail, menu)

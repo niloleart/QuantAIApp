@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="There are no favorite characters\nAdd some!" />
+            android:text="@string/no_favs_placeholder" />
     </LinearLayout>
 
 

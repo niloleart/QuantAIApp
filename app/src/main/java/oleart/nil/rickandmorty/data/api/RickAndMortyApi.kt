@@ -10,11 +10,6 @@ interface RickAndMortyApi {
 
     @GET
     fun getCharacters(
-        @Url url: String
-    ): Call<CharactersResponseDTO>
-
-    @GET
-    fun getCharacters(
         @Url url: String,
         @Query("page") request: Int
     ): Call<CharactersResponseDTO>

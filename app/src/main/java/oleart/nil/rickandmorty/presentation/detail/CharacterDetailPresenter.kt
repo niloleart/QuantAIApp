@@ -24,6 +24,7 @@ class CharacterDetailPresenter @Inject constructor(
     override fun getDescription(character: Character) {
         this.character = character
         if (this.character.description.isNullOrEmpty()) {
+            view.showLoading()
             launch {
                 interactor.getCharacterDescription(character).either(
                     ::getCharacterDescriptionError, ::getCharacterDescriptionSuccess
@@ -47,9 +48,9 @@ class CharacterDetailPresenter @Inject constructor(
     }
 
     private fun getCharacterDescriptionError(dataSourceError: DataSourceError) {
-        dataSourceError.error.message?.let { view.showError(it) }
+//        dataSourceError.error.message?.let { view.showError(it) }
         view.disableDescription()
-        view.showBasicData()
+        view.showPlaceholder()
     }
 
     private fun getCharacterDescriptionSuccess(message: String) {

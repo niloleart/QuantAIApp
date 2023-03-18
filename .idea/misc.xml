@@ -3,14 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/background_top_shadow.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_fav_off.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_fav_on.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_morty.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1745" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1745" />
         <entry key="app/src/main/res/drawable/top_shadow_button.xml" value="0.2085" />
         <entry key="app/src/main/res/layout/activity_character_detail.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3324324324324324" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/content_detail.xml" value="0.18229166666666666" />
+        <entry key="app/src/main/res/layout/content_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1453125" />
         <entry key="app/src/main/res/layout/fragment_favs.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18333333333333332" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.259963768115942" />
         <entry key="app/src/main/res/layout/row_character.xml" value="0.26313405797101447" />
         <entry key="app/src/main/res/layout/row_character_fav.xml" value="0.10511651469098278" />
         <entry key="app/src/main/res/layout/row_loading.xml" value="0.21302083333333333" />
@@ -19,7 +31,9 @@
         <entry key="app/src/main/res/menu/menu_detail.xml" value="0.3640625" />
         <entry key="app/src/main/res/menu/menu_process.xml" value="0.18229166666666666" />
         <entry key="app/src/main/res/menu/toolbar_detail.xml" value="0.18611111111111112" />
+        <entry key="app/src/main/res/menu/toolbar_favs.xml" value="0.12685185185185185" />
         <entry key="app/src/main/res/menu/toolbar_home.xml" value="0.15" />
+        <entry key="app/src/main/res/menu/toolbar_process.xml" value="0.3640625" />
       </map>
     </option>
   </component>

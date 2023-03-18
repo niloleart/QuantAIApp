@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Getting data..."
+            android:text="@string/get_data_text"
             android:textColor="@color/black"
             android:textSize="23dp" />
     </LinearLayout>
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="There has been an error..."
+            android:text="@string/generic_error_text"
             android:textColor="@color/black"
             android:textSize="23dp" />
 
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Retry" />
+            android:text="@string/text_retry" />
 
     </LinearLayout>
 

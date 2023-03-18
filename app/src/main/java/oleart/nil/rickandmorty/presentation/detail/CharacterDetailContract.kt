@@ -17,6 +17,7 @@ interface CharacterDetailContract {
         fun setDescription(description: String)
         fun disableDescription()
         fun showError(string: String)
-        fun showBasicData()
+        fun showPlaceholder()
+        fun showLoading()
     }
 }

@@ -35,8 +35,20 @@ class FavsFragment() : BaseFragment<FragmentFavsBinding>(FragmentFavsBinding::in
 
     private fun setToolbar() {
         with(binding.toolbarFavs) {
-            inflateMenu(R.menu.toolbar_process)
-            title = "Favorites"
+            inflateMenu(R.menu.toolbar_favs)
+            title = context.getString(R.string.title_favs)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.actionbar_menu_delete -> {
+                        presenter.deleteAllFavs()
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+                }
+
+            }
         }
     }
 

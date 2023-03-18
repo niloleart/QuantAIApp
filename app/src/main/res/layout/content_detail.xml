@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_character_detail">
 
     <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_marginEnd="10dp"
         android:id="@+id/ll_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:orientation="vertical">
 
@@ -19,10 +20,10 @@
             android:id="@+id/ll_loading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="70dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <ProgressBar
                 android:id="@+id/pb_loading"
@@ -37,10 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:text="Generating character description using ChatGPT-3.5...\nIt may take some seconds..." />
+                android:text="@string/gpt_loading_text" />
 
         </LinearLayout>
-
 
         <TextView
             android:id="@+id/tv_description"
@@ -48,8 +48,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            tools:text="testetestestestestasdjaklsd askjdhasjkd ll ajkshd ll"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/ll_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_morty" />
+
+            <TextView
+                style="@style/Roboto.Light.M"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/gpt_error_text" />
+
+            <Button
+                android:id="@+id/bt_retry"
+                style="@style/Roboto.Black.L"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingEnd="40dp"
+                android:paddingStart="40dp"
+                android:paddingTop="8dp"
+                android:text="@string/text_retry"
+                android:textColor="@color/white"
+                android:theme="@style/Widget.AppCompat.Button.Borderless" />
+
+        </LinearLayout>
     </LinearLayout>
 
 

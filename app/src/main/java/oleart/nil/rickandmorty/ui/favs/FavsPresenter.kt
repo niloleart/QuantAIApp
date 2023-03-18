@@ -21,6 +21,13 @@ class FavsPresenter(
         }
     }
 
+    override fun deleteAllFavs() {
+        launch {
+            databaseInteractor.deleteAllFavorites()
+        }
+        view.showPlaceholder()
+    }
+
     private fun getFavsSuccess(favs: List<Character?>) {
         view.setRV(favs)
     }

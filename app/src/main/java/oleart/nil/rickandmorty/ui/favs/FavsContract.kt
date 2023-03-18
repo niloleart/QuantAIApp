@@ -8,6 +8,7 @@ interface FavsContract : CharactersContract {
     interface Presenter : CharactersContract.Presenter {
 
         fun getFavCharacters()
+        fun deleteAllFavs()
     }
 
     interface View {
